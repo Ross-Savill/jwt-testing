@@ -30,6 +30,34 @@ class Form extends Component {
       });
   }
 
+  ///////////////////////////REGISTER FORM NEW BUTTON/////////////////////////////
+
+  registerForm = (e) => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    const url = "http://localhost:8000/auth/register";
+    const data = {
+      username,
+      password
+    }
+    axios.post(url, data)
+      .then(resp => {
+        const { token } = resp.data;
+        localStorage.setItem('token', token);
+        // RE-ROUTE TO HOMEPAGE
+        this.setState({ message: 'Correct username or password...moron', error: undefined });
+      })
+      .catch(error => {
+        const { status } = error.response;
+        if (status === 403) {
+          this.setState({ error: 'Incorrect username or password. Try again...moron', message: undefined });
+        }
+      });
+  }
+
+
+  ////////////////////////////////REGISTER FORM END//////////////////////////
+
   handleProtectedRequest = (e) => {
     // e.preventDefault();
     const token = localStorage.getItem('token');
@@ -62,6 +90,8 @@ class Form extends Component {
           <label htmlFor="password">Password: </label>
           <input type="password" id="password" onChange={this.handleInputChange} />
           <button onClick={this.submitForm}>Login</button>
+          <button onClick={this.registerForm}>Register</button>
+          <button onClick={this.logoutForm}>Logout</button>
         </form>
         { error && <p>{ error }</p> }
         { message && <p>{ message }</p> }
