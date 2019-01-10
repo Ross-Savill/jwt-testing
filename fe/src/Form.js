@@ -30,7 +30,7 @@ class Form extends Component {
       });
   }
 
-  ///////////////////////////REGISTER FORM NEW BUTTON/////////////////////////////
+  ///////////////////////////REGISTER FORM NEW BUTTON///////////////////////////
 
   registerForm = (e) => {
     e.preventDefault();
@@ -54,7 +54,6 @@ class Form extends Component {
         }
       });
   }
-
 
   ////////////////////////////////REGISTER FORM END//////////////////////////
 
